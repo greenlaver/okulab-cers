@@ -1,0 +1,7 @@
+Django == 3.0.6
+djangorestframework
+django-bootstrap4
+django-cleanup
+psycopg2
+django-autocomplete-light
+python-docx

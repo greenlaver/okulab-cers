@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+    db:
+        image: postgres
+        volumes:
+            - ./pgsql-data:/var/lib/postgresql/data
+        ports:
+            - 5432:5432
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+    django:
+        build: ./app
+        command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+        volumes:
+            - ./app/:/usr/src/app/
+            - ./docx/:/usr/src/docx/
+        ports:
+            - 8000:8000
+        environment:
+            - DEBUG=0
+            - DOCX_PATH=/usr/src/docx
+        depends_on:
+            - db
+
+
